@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Src\home.png" />
     <None Include="wwwroot\Src\villaggio.jpg" />
     <None Include="wwwroot\Src\villaggio2.jpg" />
     <None Include="wwwroot\Src\villaggio3.jpg" />

@@ -153,10 +153,10 @@ function showConfirmationModalForRoles(url, data) {
 
 //<users>
 function showConfirmationModalForUsers(url, data) {
-    document.getElementById("modal-header").innerText = data.addOrDelete + " user ?";
+    document.getElementById("modal-header").innerText = data.addOrDelete + " user";
     questionP = document.createElement("p");
     questionP.style.textAlign = "center";
-    questionP.innerText = data.addOrDelete + " user ?";
+    questionP.innerText = data.addOrDelete + " user";
     document.getElementById("modal-body").appendChild(questionP);
 
     OKbutton = document.createElement("button");
@@ -213,6 +213,7 @@ function showConfirmationModalForUsers(url, data) {
             ajaxCall(url, data);
         }
     }
+
     $(".modal-footer").append(OKbutton);
     CancelButton = document.createElement("button");
     CancelButton.innerText = "Cancel";
@@ -233,7 +234,6 @@ function hideModal() {
     $(".modal-footer").empty();
     document.getElementById("modal").style.display = "none";
 }
-
 
 // EVENTI 
 function ButtonClick(Ithis) {
