@@ -39,7 +39,7 @@ namespace MVC_TDPC13.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult AdminPage()
         {
             return View();

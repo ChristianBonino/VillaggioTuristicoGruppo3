@@ -273,7 +273,7 @@ function ButtonClick(Ithis) {
 
             console.log("status ", status); // response
 
-            if (data.result === "Record inserito") {\
+            if (data.result === "Record inserito") {
                 $("#posti").val("");
                 $("#settimana").val("");
 
@@ -297,22 +297,82 @@ function ButtonClick(Ithis) {
     });
 }
 
+
 function getTabellaPrenoa() {
+    const idUser = $("[data-idUser]").attr("data-idUser"); // trovare om prendere id utente da menu
 
     $.ajax({
         method: "GET",
-        //url: "/api/API/getasync",
-        //url: "/api/Prenota/Get",
-        url: "/api/Prenota?idUser=" + "Annalisa",
-        data: "Annalisa",
+        url: "/api/Prenota/GetPrenotazioni?id=Annalisa",
+        //        url: "/api/Prenota/GetPrenotazioni?id=" + idUser, // giusto
         contentType: "application/json; charset=utf-8",
-        //dataType: "json",
-        dataType: "string",
+        dataType: "json",
         success: function (data, status) {
             console.log(data);
-            //for (var i = 0; i < data.length; i++) {
-            //    $("#resultDiv").append("<br/><div>" + data[i] + "</div>");
-            //}
+            
+            for (var i = 0; i < data.length; i++) {
+                let dateIta = getDateOfWeek(data[i].settimana);
+
+                $("#myPrenota").append("<br/><div>" + data[i].userName + ", " + data[i].idVillage + ", " + data[i].posti + ", " + dateIta +"</div>");
+            }
+            this.always();
+        },
+        error: function (error, status) {
+            console.log(error);
+            console.log(status);
+            this.always();
+        },
+        always: function () { }
+    });
+};
+
+//function getDateOfWeek(w, y) {
+function getDateOfWeek(week) {
+    //debugger;
+
+    const myArrayDate = week.split("-W");
+    ////console.log(myArrayDate[1]); return;
+    //var d = (1 + (myArrayDate[1] - 1) * 7); // 1st of January + 7 days for each week
+
+    //return new Date(myArrayDate[0], 0, d);
+
+    //let dateObj = new Date(dateWeek);
+    //console.log(dateObj); return;
+
+
+    // Create a date for 1 Jan in required year
+    var d = new Date(myArrayDate[0], 0);
+    // Get day of week number, sun = 0, mon = 1, etc.
+    var dayNum = d.getDay();
+    // Get days to add
+    var requiredDate = --myArrayDate[1] * 7;
+
+    // For ISO week numbering
+    // If 1 Jan is Friday to Sunday, go to next week 
+    if (dayNum != 0 || dayNum > 4) {
+        requiredDate += 7;
+    }
+
+    // Add required number of days
+    d.setDate(1 - d.getDay() + ++requiredDate);
+    console.log(d);
+    return d.toLocaleDateString('it-US', 'DD/MM/yyyy');
+
+}
+
+function getAllTabellaPrenoa() {
+    $.ajax({
+        method: "GET",
+        url: "/api/Prenota/GetAllPrenotazioni",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data, status) {
+            console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                let dateIta = getDateOfWeek(data[i].settimana);
+
+                $("#myPrenotas").append("<br/><div>" + data[i].userName + ", " + data[i].idVillage + ", " + data[i].posti + ", " + dateIta + "</div>");
+            }
             this.always();
         },
         error: function (error, status) {
