@@ -33,12 +33,32 @@ namespace MVC_TDPC13.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<Prenota1Controller>/5
-        [HttpGet("{id}")]
-        //public string Get( int id) // legge singolo con id
-        public string Get([FromBody] string id) // cambiare con Guid
+        // GET: api/<Prenota1Controller>
+        [HttpGet("GetPrenotazioni")]
+        public IEnumerable<Prenotazione> GetPrenotazioni([FromQuery] string id) // legge tutti // cambiare con guid
         {
-            return "value";
+            if (id != null)
+            {
+                //Prenotazione prenota = new Prenotazione();
+                //renota.idUser = id;
+
+                List<Prenotazione> myPrenota = this.repository.GetPersons(id);
+                //String res = this.repository.InsertPerson(prenota);
+                //var result = new { result = res };
+
+                return myPrenota;
+            }
+
+            // return new string[] { "value1", "value2" };
+            return new List<Prenotazione>();
+        }
+
+        // GET: api/<Prenota1Controller>
+        [HttpGet("GetAllPrenotazioni")]
+        public IEnumerable<Prenotazione> GetAllPrenotazioni() // legge tutti // cambiare con guid
+        {
+                List<Prenotazione> myPrenota = this.repository.GetPersons();
+                return myPrenota;
         }
 
         // POST api/<Prenota1Controller>

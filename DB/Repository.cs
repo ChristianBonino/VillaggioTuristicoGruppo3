@@ -19,6 +19,13 @@ namespace MVC_TDPC13.DB
             List<Prenotazione> result = this.DBContext.Prenotazione.ToList();
             return result;
         }
+        public List<Prenotazione> GetPersons(string id)
+        {
+            //select * from persons
+            List<Prenotazione> result = this.DBContext.Prenotazione.Where(p => p.idUser.Contains(id) ).ToList();
+            return result;
+        }
+
         public Prenotazione GetPersonByID(string id)
         {
             //select * from persons where id = "id"

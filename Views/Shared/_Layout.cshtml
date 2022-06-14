@@ -52,12 +52,12 @@
                             <a class="navbar-brand ciccio" asp-area="" asp-controller="Home" asp-action="UserPage">User Page</a>
                         </li>
                         @*}*@
-                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-                        {
+                      @*  @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        {*@
                             <li class="nav-item">
                                 <a class="navbar-brand ciccio" asp-area="" asp-controller="Home" asp-action="AdminPage">Admin Page</a>
                             </li>
-                        }
+                        @*}*@
                         @if (!SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
