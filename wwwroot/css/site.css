@@ -83,6 +83,7 @@ body {
     color: lightyellow !important;
     font-size: 25px !important;
     padding: 20px;
+    white-space: nowrap !important;
 }
 
     .ciccio:hover {
