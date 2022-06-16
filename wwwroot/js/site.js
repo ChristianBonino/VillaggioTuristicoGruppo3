@@ -153,10 +153,10 @@ function showConfirmationModalForRoles(url, data) {
 
 //<users>
 function showConfirmationModalForUsers(url, data) {
-    document.getElementById("modal-header").innerText = data.addOrDelete + " user";
+    document.getElementById("modal-header").innerText = data.addOrDelete + " user ?";
     questionP = document.createElement("p");
     questionP.style.textAlign = "center";
-    questionP.innerText = data.addOrDelete + " user";
+    questionP.innerText = data.addOrDelete + " user ?";
     document.getElementById("modal-body").appendChild(questionP);
 
     OKbutton = document.createElement("button");
@@ -213,7 +213,6 @@ function showConfirmationModalForUsers(url, data) {
             ajaxCall(url, data);
         }
     }
-
     $(".modal-footer").append(OKbutton);
     CancelButton = document.createElement("button");
     CancelButton.innerText = "Cancel";
@@ -235,10 +234,11 @@ function hideModal() {
     document.getElementById("modal").style.display = "none";
 }
 
+
 // EVENTI 
 function ButtonClick(Ithis) {
     const dataDiv = $(Ithis).attr("data-div");
-     const idUser = $("[data-idUser]").attr("data-idUser"); // trovare om prendere id utente da menu
+    const idUser = $("[data-idUser]").attr("data-idUser"); // trovare om prendere id utente da menu
     const userName = $("[data-idUser] a").text();
     const idVillage = $("#" + dataDiv + " #idVillage").val();
     const posti = $("#" + dataDiv + " #posti").val();
@@ -297,24 +297,63 @@ function ButtonClick(Ithis) {
     });
 }
 
+const arrVillage = {
+    "villaggio1": "Pacchetto Eden",
+    "villaggio1_prezzo": 600,
+    "villaggio2": "Pacchetto Acquavillage",
+    "villaggio2_prezzo": 600,
+    "villaggio3": "Pacchetto Dune",
+    "villaggio3_prezzo": 600,
+    "villaggio4": "Pacchetto Paradiso",
+    "villaggio4_prezzo": 950,
+    "villaggio5": "Pacchetto Privè",
+    "villaggio5_prezzo": 950,
+};
 
 function getTabellaPrenoa() {
     const idUser = $("[data-idUser]").attr("data-idUser"); // trovare om prendere id utente da menu
 
     $.ajax({
         method: "GET",
-        url: "/api/Prenota/GetPrenotazioni?id=Annalisa",
-        //        url: "/api/Prenota/GetPrenotazioni?id=" + idUser, // giusto
+        //url: "/api/Prenota/GetPrenotazioni?id=Annalisa",
+        url: "/api/Prenota/GetPrenotazioni?id=" + idUser, // giusto
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data, status) {
             console.log(data);
-            
+
+            let tableData = `
+                             <table class="table table-striped table-bordered" style="background-color: azure;">
+                                <thead>
+                                    <tr>
+                                        <th>Villaggio</th>
+                                        <th>Posti</th>
+                                        <th>Settimana</th>
+                                        <th>Prezzo totale</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                            `;
+
             for (var i = 0; i < data.length; i++) {
                 let dateIta = getDateOfWeek(data[i].settimana);
 
-                $("#myPrenota").append("<br/><div>" + data[i].userName + ", " + data[i].idVillage + ", " + data[i].posti + ", " + dateIta +"</div>");
+                //$("#myPrenota").append("<br/><div>" + data[i].userName + ", " + data[i].idVillage + ", " + data[i].posti + ", " + dateIta + ", " + data[i] +  "</div>");
+                tableData += `<tr>
+                                    <td> ${arrVillage[data[i].idVillage]} </td>
+                                    <td> ${data[i].posti} </td>
+                                    <td> ${dateIta} </td>
+                                    <td style="text-align: right;"> ${arrVillage[data[i].idVillage + "_prezzo"] * data[i].posti} €</td>
+                              </tr>`;
             }
+
+            tableData += `<tbody>`;
+
+            $("#myPrenota").append(tableData);
+            //$("#myPrenota").css("background-color: azure;"); // non va
+
+            $("button").hide();
+
             this.always();
         },
         error: function (error, status) {
@@ -355,7 +394,7 @@ function getDateOfWeek(week) {
 
     // Add required number of days
     d.setDate(1 - d.getDay() + ++requiredDate);
-    console.log(d);
+    //console.log(d);
     return d.toLocaleDateString('it-US', 'DD/MM/yyyy');
 
 }
@@ -368,11 +407,41 @@ function getAllTabellaPrenoa() {
         dataType: "json",
         success: function (data, status) {
             console.log(data);
+
+            let tableData = `
+                             <table class="table table-striped table-bordered" style="background-color: azure;">
+                                <thead>
+                                    <tr>
+                                        <th>Utente</th>
+                                        <th>Villaggio</th>
+                                        <th>Posti</th>
+                                        <th>Settimana</th>
+                                        <th>Prezzo totale</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                            `;
+
             for (var i = 0; i < data.length; i++) {
                 let dateIta = getDateOfWeek(data[i].settimana);
 
-                $("#myPrenotas").append("<br/><div>" + data[i].userName + ", " + data[i].idVillage + ", " + data[i].posti + ", " + dateIta + "</div>");
+                //$("#myPrenotas").append("<br/><div>" + data[i].userName + ", " + data[i].idVillage + ", " + data[i].posti + ", " + dateIta + "</div>");
+
+                tableData += `<tr>
+                                    <td> ${data[i].userName} </td>
+                                    <td> ${arrVillage[data[i].idVillage]} </td>
+                                    <td> ${data[i].posti} </td>
+                                    <td> ${dateIta} </td>
+                                    <td style="text-align: right;"> ${arrVillage[data[i].idVillage + "_prezzo"] * data[i].posti} €</td>
+                              </tr>`;
             }
+
+            tableData += `<tbody>`;
+
+            $("#myPrenotas").append(tableData);
+
+            $("button").hide();
+
             this.always();
         },
         error: function (error, status) {
@@ -383,3 +452,46 @@ function getAllTabellaPrenoa() {
         always: function () { }
     });
 };
+
+/*
+ * <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Villaggio</th>
+              <th>Posti</th>
+              <th>Settimana</th>
+              <th>Prezzo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Villaggio1</td>
+              <td>20</td>
+              <td>john@example.com</td>
+              <td>1007</td>
+            </tr>
+            <tr>
+              <td>Villaggio2</td>
+              <td>15</td>
+              <td>mary@example.com</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>Villaggio3</td>
+              <td>27</td>
+              <td>july@example.com</td>
+              <td>5488849595959</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      */
+
+// TO DO
+/*
+ * - cambiare idVillaggio in nome pacchetto
+ * -- contare quanto costo totale
+ * -- cercare confirm prenotazione
+ * -- gestire colore tabella pari
+ */

@@ -16,13 +16,13 @@ namespace MVC_TDPC13.DB
         public List<Prenotazione> GetPersons()
         {
             //select * from persons
-            List<Prenotazione> result = this.DBContext.Prenotazione.ToList();
+            List<Prenotazione> result = this.DBContext.Prenotazione.OrderBy(p => p.idUser).ThenBy(p => p.idVillage).ThenBy(p => p.settimana).ToList();
             return result;
         }
         public List<Prenotazione> GetPersons(string id)
         {
             //select * from persons
-            List<Prenotazione> result = this.DBContext.Prenotazione.OrderBy(p => p.idUser).ThenBy(p => p.idVillage).ThenBy(p => p.settimana).ToList();
+            List<Prenotazione> result = this.DBContext.Prenotazione.Where(p => p.idUser.Contains(id)).ToList();
             return result;
         }
 
