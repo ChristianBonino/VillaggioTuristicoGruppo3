@@ -14,7 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace MVC_TDPC13.Controllers
-{ 
+{
     public class HomeController : Controller
     {
         private SignInManager<User> signInManager;
@@ -39,14 +39,23 @@ namespace MVC_TDPC13.Controllers
             return View();
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult AdminPage()
         {
             return View();
         }
 
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "User")]
         public IActionResult UserPage()
+        {
+            return View();
+        }
+        public IActionResult Contacts()
+        {
+            return View();
+        }
+
+        public IActionResult Privacy()
         {
             return View();
         }

@@ -250,8 +250,6 @@ function ButtonClick(Ithis) {
     };
 
 
-    // alert("prenota");
-
     // creo il json con i dati
     const body = {};
     body.userName = userName;
@@ -315,7 +313,6 @@ function getTabellaPrenoa() {
 
     $.ajax({
         method: "GET",
-        //url: "/api/Prenota/GetPrenotazioni?id=Annalisa",
         url: "/api/Prenota/GetPrenotazioni?id=" + idUser, // giusto
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -453,45 +450,9 @@ function getAllTabellaPrenoa() {
     });
 };
 
-/*
- * <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th>Villaggio</th>
-              <th>Posti</th>
-              <th>Settimana</th>
-              <th>Prezzo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Villaggio1</td>
-              <td>20</td>
-              <td>john@example.com</td>
-              <td>1007</td>
-            </tr>
-            <tr>
-              <td>Villaggio2</td>
-              <td>15</td>
-              <td>mary@example.com</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td>Villaggio3</td>
-              <td>27</td>
-              <td>july@example.com</td>
-              <td>5488849595959</td>
-            </tr>
-
-          </tbody>
-        </table>
-      </div>
-      */
 
 // TO DO
 /*
- * - cambiare idVillaggio in nome pacchetto
- * -- contare quanto costo totale
  * -- cercare confirm prenotazione
  * -- gestire colore tabella pari
  */

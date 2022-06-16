@@ -44,20 +44,28 @@
                     <ul class="navbar-nav flex-grow-1">
 
                         <li class="nav-item">
-                            <a class="navbar-brand ciccio" asp-area="" asp-controller="Home" asp-action="Explor">Explore</a>
+                            <a class="navbar-brand ciccio" asp-area="" asp-controller="Home" asp-action="Explor">Pacchetti Villaggi</a>
                         </li>
-                         @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
                         {
-                        <li class="nav-item">
-                            <a class="navbar-brand ciccio" asp-area="" asp-controller="Home" asp-action="UserPage">User Page</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="navbar-brand ciccio" asp-area="" asp-controller="Home" asp-action="UserPage">User Page</a>
+                            </li>
                         }
-                          @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                         {
-                        <li class="nav-item">
-                            <a class="navbar-brand ciccio" asp-area="" asp-controller="Home" asp-action="AdminPage">Admin Page</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="navbar-brand ciccio" asp-area="" asp-controller="Home" asp-action="AdminPage">Admin Page</a>
+                            </li>
                         }
+
+                        <li class="nav-item">
+                            <a class="navbar-brand ciccio" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="navbar-brand ciccio" asp-area="" asp-controller="Home" asp-action="Contacts">Contacts</a>
+                        </li>
+
                         @if (!SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
@@ -94,7 +102,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - MVC_TDPC13 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; Copyright 2022 - VILAGGIO TURISTICO &emsp;  Gruppo 3 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
