@@ -16,10 +16,10 @@
     <div class="card" style="width:300%">
         <img class="card-img-top" src="~/Src/villaggio.jpg" alt="VILLAGGIO 1" style="width:100%">
         <div class="card-body">
-            <h4 class="card-title">Villaggio Eden</h4>
+            <h4 class="card-title">Pacchetto Eden</h4>
             <p class="card-text"><b>Target: </b>"Single"</p>
             <button class="btn btn-sm btn-primary m-3" data-bs-toggle="collapse" data-bs-target="#villaggio1">Dettagli</button>
-            @if (SignInManager.IsSignedIn(User))
+            @if (SignInManager.IsSignedIn(User)  && User.IsInRole("User"))
             {
                 <div id="v1">
                     <input id="idVillage" type="text" value="villaggio1" hidden></input>
@@ -52,7 +52,7 @@
     <div class="card" style="width:300%">
         <img class="card-img-top" src="~/Src/villaggio2.jpg" alt="VILLAGGIO 2" style="width:100%">
         <div class="card-body">
-            <h4 class="card-title">Acquavillage</h4>
+            <h4 class="card-title">Pacchetto Acquavillage</h4>
             <p class="card-text"><b>Target: </b>"Famiglie"</p>
             <button class="btn btn-sm btn-primary m-3" data-bs-toggle="collapse" data-bs-target="#villaggio2">Dettagli</button>
             @if (SignInManager.IsSignedIn(User))
@@ -89,7 +89,7 @@
     <div class="card" style="width:300%">
         <img class="card-img-top" src="~/Src/villaggio3.jpg" alt="VILLAGGIO 3" style="width:100%">
         <div class="card-body">
-            <h4 class="card-title">Villaggio Dune</h4>
+            <h4 class="card-title">Pacchetto Dune</h4>
             <p class="card-text"><b>Target: </b>"Giovani"</p>
             <button class="btn btn-sm btn-primary m-3" data-bs-toggle="collapse" data-bs-target="#villaggio3">Dettagli</button>
             @if (SignInManager.IsSignedIn(User))
@@ -125,7 +125,7 @@
     <div class="card" style="width:300%">
         <img class="card-img-top" src="~/Src/villaggio4.jpg" alt="VILLAGGIO 4" style="width:100%">
         <div class="card-body">
-            <h4 class="card-title">Villaggio Paradiso</h4>
+            <h4 class="card-title">Pacchetto Paradiso</h4>
             <p class="card-text"><b>Target: </b>"Tutto"</p>
             <button class="btn btn-sm btn-primary m-3" data-bs-toggle="collapse" data-bs-target="#villaggio4">Dettagli</button>
             @if (SignInManager.IsSignedIn(User))
