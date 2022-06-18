@@ -96,12 +96,24 @@ body {
     white-space: nowrap !important;
 }
 
-    .ciccio:hover {
-        color: gold !important;
-    }
+.ciccio:hover {
+    color: gold !important;
+}
 
 .pasticcio {
     font-family: 'Trebuchet MS';
     color: darkblue !important;
     padding: 20px;
+}
+
+tr:hover td {
+    background-color: #1e90ff47;
+}
+
+.iconeContat {
+    display:inline;
+}
+
+td {
+    font-size: 1.5rem;
 }

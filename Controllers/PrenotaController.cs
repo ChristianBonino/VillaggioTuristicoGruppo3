@@ -92,8 +92,26 @@ namespace MVC_TDPC13.Controllers
 
         // DELETE api/<Prenota1Controller>/5
         [HttpDelete("{id}")] 
-        public void Delete(int id) // elimina uno con id
+        public String Delete([FromQuery]  string id) // elimina uno con id
+        //public Prenotazione Delete(string id) // elimina uno con id
+
         {
+            String res = "Delete";
+
+            if (id != null)
+            {
+                //Prenotazione prenota = new Prenotazione();
+                //renota.idUser = id;
+
+                res = this.repository.DeletePrenotaByID(id);
+                //Prenotazione res2 = this.repository.DeletePrenotaByID(id.ToLower());
+
+                return res;
+                //return res2;
+            }
+
+            return res = "Prenotazione non cancellata";
+            //return  new Prenotazione();
         }
     }
 }

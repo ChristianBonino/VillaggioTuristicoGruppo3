@@ -277,7 +277,7 @@ function ButtonClick(Ithis) {
 
                 alert(data.result);
             } else {
-                alert("Errore: prenotazione non accetttata");
+                alert("Errore: prenotazione non accetttata: \n" + data.result);
             };
 
             this.always();
@@ -320,7 +320,7 @@ function getTabellaPrenoa() {
             console.log(data);
 
             let tableData = `
-                             <table class="table table-striped table-bordered" style="background-color: azure;">
+                             <table id="tableUser" class="table table-striped table-bordered" style="background-color: azure;">
                                 <thead>
                                     <tr>
                                         <th>Villaggio</th>
@@ -339,8 +339,9 @@ function getTabellaPrenoa() {
                 tableData += `<tr>
                                     <td> ${arrVillage[data[i].idVillage]} </td>
                                     <td> ${data[i].posti} </td>
-                                    <td> ${dateIta} </td>
+                                    <td> dal ${dateIta[0]} al ${dateIta[1]} </td>
                                     <td style="text-align: right;"> ${arrVillage[data[i].idVillage + "_prezzo"] * data[i].posti} €</td>
+                                    <td id="${data[i].iD_prenota}" onclick="deletePrenota(this)"> <i class="fa fa-trash text-primary" aria-hidden="true"></i> </td>
                               </tr>`;
             }
 
@@ -391,8 +392,36 @@ function getDateOfWeek(week) {
 
     // Add required number of days
     d.setDate(1 - d.getDay() + ++requiredDate);
-    //console.log(d);
-    return d.toLocaleDateString('it-US', 'DD/MM/yyyy');
+
+    // END
+    /*
+    // Create a date for 1 Jan in required year
+    var dEnd = new Date(myArrayDate[0], 0);
+    // Get day of week number, sun = 0, mon = 1, etc.
+    var dayNumEnd = dEnd.getDay();
+    // Get days to add
+    var requiredDateEnd = --myArrayDate[1] * 7;
+
+    // For ISO week numbering
+    // If 1 Jan is Friday to Sunday, go to next week 
+    if (dayNumEnd != 0 || dayNumEnd > 4) {
+        requiredDateEnd += 7;
+    }
+
+    // Add required number of days
+    dEnd.setDate(1 - dEnd.getDay() + ++requiredDateEnd);
+    */
+    //var dEnd = new Date(d + 6);
+    var dEnd = new Date(d);
+    dEnd.setDate(d.getDate() + 6);
+
+    console.log(myArrayDate);
+    console.log(d);
+    console.log(dEnd);
+    return [
+        d.toLocaleDateString('it-US', 'DD/MM/yyyy'),
+        dEnd.toLocaleDateString('it-US', 'DD/MM/yyyy'),
+        ];
 
 }
 
@@ -406,7 +435,7 @@ function getAllTabellaPrenoa() {
             console.log(data);
 
             let tableData = `
-                             <table class="table table-striped table-bordered" style="background-color: azure;">
+                             <table id="tableAdmin" class="table table-striped table-bordered" style="background-color: azure;">
                                 <thead>
                                     <tr>
                                         <th>Utente</th>
@@ -428,7 +457,7 @@ function getAllTabellaPrenoa() {
                                     <td> ${data[i].userName} </td>
                                     <td> ${arrVillage[data[i].idVillage]} </td>
                                     <td> ${data[i].posti} </td>
-                                    <td> ${dateIta} </td>
+                                    <td> dal ${dateIta[0]} al ${dateIta[1]}</td>
                                     <td style="text-align: right;"> ${arrVillage[data[i].idVillage + "_prezzo"] * data[i].posti} €</td>
                               </tr>`;
             }
@@ -439,6 +468,34 @@ function getAllTabellaPrenoa() {
 
             $("button").hide();
 
+            this.always();
+        },
+        error: function (error, status) {
+            console.log(error);
+            console.log(status);
+            this.always();
+        },
+        always: function () { }
+    });
+};
+
+function deletePrenota(ithis) {
+    const idPrenota = $(ithis).attr("id"); 
+    //console.log(idPrenota); return; //45ff0bc3-ebde-4b03-92a1-08da4ec252ef
+
+    $.ajax({
+        method: "DELETE",
+        url: "/api/Prenota/Delete?id=" + idPrenota,
+        contentType: "application/json; charset=utf-8",
+        dataType: "text",
+        success: function (data, status) {
+            console.log(data);
+            alert(data);
+
+            if (data == "Record eliminato") { // da sistemare
+                $("#tableUser").remove(); // elimina tabella
+                getTabellaPrenoa(); // ripristina tabella
+            }
             this.always();
         },
         error: function (error, status) {

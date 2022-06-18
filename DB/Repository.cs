@@ -9,6 +9,18 @@ namespace MVC_TDPC13.DB
     public class Repository
     {
         private DBContext DBContext;
+        //public int[] PostiVillag
+        //{
+        //    get
+        //    {
+        //        return this.PostiVillag;
+        //    }
+        //    set
+        //    {
+        //        this.PostiVillag = new int[] { 100, 50, 60, 20, 30 };
+        //    }
+        //}
+
         public Repository(DBContext DBContext)
         {
             this.DBContext = DBContext;
@@ -47,14 +59,79 @@ namespace MVC_TDPC13.DB
         {
             try
             {
-                this.DBContext.Prenotazione.Add(person);
-                this.DBContext.SaveChanges();
-                return "Record inserito";
+                //this.PostiVillag
+                int[] PostiVillag = new int[] { 100, 50, 60, 20, 30 };
+                int i = 0;
+                if (person.idVillage == "villaggio1")
+                {
+                    i = 0;
+                }
+                else if (person.idVillage == "villaggio2")
+                {
+                    i = 1;
+                }
+                else if (person.idVillage == "villaggio3")
+                {
+                    i = 2;
+                }
+                else if (person.idVillage == "villaggio4")
+                {
+                    i = 3;
+                }
+                else if (person.idVillage == "villaggio4")
+                {
+                    i = 4;
+                };
+                var sumPrenotati = this.DBContext.Prenotazione.Where(p => p.idVillage == person.idVillage
+                                                                            && p.settimana.Contains(person.settimana)
+                                                                            ).Sum(p => p.posti);
+
+                if ((sumPrenotati + person.posti) <= PostiVillag[i]) //(sumPrenotati + person.posti) > this.PostiVillag[i]
+                {
+
+                    this.DBContext.Prenotazione.Add(person);
+                    this.DBContext.SaveChanges();
+                    return "Record inserito";
+                    //return "Prenotazione inserita" + (sumPrenotati + "+" + person.posti) + " <= " + PostiVillag[i];
+                    //return "Prenotazione inserita";
+                    //return "Record inserito";
+                }
+                else
+                {
+                    return "Posti non disponibili: (prenotati " + (sumPrenotati + " + richiesti " + person.posti) + ")  <=  totali " + PostiVillag[i];
+                };
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return ex.ToString(); // stampa messaggio errore
             }
         }
+        public String DeletePrenotaByID(string id)
+        //public Prenotazione DeletePrenotaByID(string id)
+        {
+            Prenotazione item = this.DBContext.Prenotazione.Where(p => p.ID_prenota.ToString() == id).FirstOrDefault();
+
+            //Prenotazione item = this.DBContext.Prenotazione.Where(p => p.ID_prenota.ToString() == "7D288C18-5849-4C97-DFF2-08DA4EEEDBCE").FirstOrDefault();
+            //Prenotazione item = this.DBContext.Prenotazione.Where(p => p.ID_prenota.ToString() == id).Single();
+
+
+            try
+            {
+                if (item != null)
+                {
+                    this.DBContext.Prenotazione.Remove(item);
+                    this.DBContext.SaveChanges();
+                };
+                //return "Record eliminato: " + id;
+                return "Record eliminato";
+                //return item;
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString() + ": " + id; // stampa messaggio errore
+                //return item;
+            }
+        }
     }
+
 }
