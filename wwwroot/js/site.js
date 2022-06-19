@@ -394,30 +394,12 @@ function getDateOfWeek(week) {
     d.setDate(1 - d.getDay() + ++requiredDate);
 
     // END
-    /*
-    // Create a date for 1 Jan in required year
-    var dEnd = new Date(myArrayDate[0], 0);
-    // Get day of week number, sun = 0, mon = 1, etc.
-    var dayNumEnd = dEnd.getDay();
-    // Get days to add
-    var requiredDateEnd = --myArrayDate[1] * 7;
-
-    // For ISO week numbering
-    // If 1 Jan is Friday to Sunday, go to next week 
-    if (dayNumEnd != 0 || dayNumEnd > 4) {
-        requiredDateEnd += 7;
-    }
-
-    // Add required number of days
-    dEnd.setDate(1 - dEnd.getDay() + ++requiredDateEnd);
-    */
-    //var dEnd = new Date(d + 6);
     var dEnd = new Date(d);
     dEnd.setDate(d.getDate() + 6);
 
-    console.log(myArrayDate);
-    console.log(d);
-    console.log(dEnd);
+    //console.log(myArrayDate);
+    //console.log(d);
+    //console.log(dEnd);
     return [
         d.toLocaleDateString('it-US', 'DD/MM/yyyy'),
         dEnd.toLocaleDateString('it-US', 'DD/MM/yyyy'),
