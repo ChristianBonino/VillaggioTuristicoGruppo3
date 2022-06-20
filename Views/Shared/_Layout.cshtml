@@ -47,7 +47,9 @@
                         <li class="nav-item">
                             <a class="navbar-brand ciccio" asp-area="" asp-controller="Home" asp-action="Explor">Pacchetti Villaggi</a>
                         </li>
-                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
+            @*            @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
+                        {*@
+                         @if (SignInManager.IsSignedIn(User) && !User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
                                 <a class="navbar-brand ciccio" asp-area="" asp-controller="Home" asp-action="UserPage">User Page</a>

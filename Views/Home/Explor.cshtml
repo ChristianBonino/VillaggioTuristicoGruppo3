@@ -17,7 +17,9 @@
             <h4 class="card-title">Pacchetto Eden</h4>
             <p class="card-text"><b>Target: </b>"Single"</p>
             <button class="btn btn-sm btn-primary m-3" data-bs-toggle="collapse" data-bs-target="#villaggio1">Dettagli</button>
-            @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
+@*            @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
+            {*@
+             @if (SignInManager.IsSignedIn(User) && !User.IsInRole("Admin"))
             {
                 <div id="v1">
                     <input id="idVillage" type="text" value="villaggio1" hidden></input>
@@ -52,7 +54,9 @@
             <h4 class="card-title">Pacchetto Acquapark</h4>
             <p class="card-text"><b>Target: </b>"Famiglie"</p>
             <button class="btn btn-sm btn-primary m-3" data-bs-toggle="collapse" data-bs-target="#villaggio2">Dettagli</button>
-            @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
+@*            @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
+            {*@
+             @if (SignInManager.IsSignedIn(User) && !User.IsInRole("Admin"))
             {
                 <div id="v2">
                     <input id="idVillage" type="text" value="villaggio2" hidden></input>
@@ -88,7 +92,9 @@
             <h4 class="card-title">Pacchetto Dune</h4>
             <p class="card-text"><b>Target: </b>"Giovani"</p>
             <button class="btn btn-sm btn-primary m-3" data-bs-toggle="collapse" data-bs-target="#villaggio3">Dettagli</button>
-            @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
+@*            @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
+            {*@
+             @if (SignInManager.IsSignedIn(User) && !User.IsInRole("Admin"))
             {
                 <div id="v3">
                     <input id="idVillage" type="text" value="villaggio3" hidden></input>
@@ -125,7 +131,9 @@
             <h4 class="card-title">Pacchetto Paradiso</h4>
             <p class="card-text"><b>Target: </b>"Tutto"</p>
             <button class="btn btn-sm btn-primary m-3" data-bs-toggle="collapse" data-bs-target="#villaggio4">Dettagli</button>
-            @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
+@*            @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
+            {*@
+             @if (SignInManager.IsSignedIn(User) && !User.IsInRole("Admin"))
             {
                 <div id="v4">
                     <input id="idVillage" type="text" value="villaggio4" hidden></input>
@@ -161,7 +169,9 @@
             <h4 class="card-title">Pacchetto Privè</h4>
             <p class="card-text"><b>Target: </b>"Coppie"</p>
             <button class="btn btn-sm btn-primary m-3" data-bs-toggle="collapse" data-bs-target="#villaggio5">Dettagli</button>
-            @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
+@*            @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
+            {*@
+             @if (SignInManager.IsSignedIn(User) && !User.IsInRole("Admin"))
             {
                 <div id="v5">
                     <input id="idVillage" type="text" value="villaggio5" hidden></input>

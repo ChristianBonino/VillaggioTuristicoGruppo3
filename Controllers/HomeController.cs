@@ -45,7 +45,8 @@ namespace MVC_TDPC13.Controllers
             return View();
         }
 
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
+        //[Authorize(Roles != "Admin")] // non funziona
         public IActionResult UserPage()
         {
             return View();
